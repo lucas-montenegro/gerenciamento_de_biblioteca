@@ -1,0 +1,13 @@
+<div class="card m-1 p-1" style="text-align: center; flex: 1">
+    <a [routerLink]="[ '/book', book.$key]" style="color: inherit;">
+        <img [attr.src]="book.imgSrc" alt="a" class="card-img-top">
+        <div class="card-header">{{ book.author }}</div>
+        <div class="card-body">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p class="card-text"> {{ book.smallDescription }}</p>
+        </div>
+        <div [className]="'alert ' + ((book.availableQuantity >= 1) ? 'alert-success' : 'alert-danger')">
+            {{ availabilityText }}
+        </div>
+    </a>
+</div>

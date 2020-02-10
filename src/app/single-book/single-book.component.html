@@ -1,0 +1,95 @@
+<div *ngIf="!loading && userServices.loggedInUser.$key !== '-M-Pw-zHB-6w9mmj0I-9'" class="card m-1 p-1" style="text-align: center; display: flex; flex-direction: row;">
+    <div class="p-2">
+        <img [attr.src]="book.imgSrc" alt="a">
+    </div>
+    <div class="p-2" style="flex: 1; border-left: 2px solid #443737;">
+        <div class="display-3 card-header">{{ book.author }}</div>
+        <div class="card-body">
+            <h5 class="display-1 card-title">{{ book.title }}</h5>
+            <hr>
+            <h5 class="mt-5 card-text"> {{ book.synopsis }}</h5>
+            <div [className]="'mt-5 alert ' + ((book.availableQuantity >= 1) ? 'alert-success' : 'alert-danger')">
+                {{ availabilityText }}
+            </div>
+            <button *ngIf="(book.availableQuantity >= 1) && (!isBorrowed(book))" type="button" class="btn btn-dark" (click)="borrowBook(book)">Alugar</button> 
+            <button *ngIf="isBorrowed(book)" type="button" class="btn btn-dark" (click)="returnBook(book)">Devolver</button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="userServices.loggedInUser.$key === '-M-Pw-zHB-6w9mmj0I-9'">
+    <div class="card m-1 p-1" style="text-align: center;">
+        <div class="p-2" style="flex: 1;">
+            <div class="display-4 card-header"> Editar Livro </div>
+            <div class="card-body">
+                <form>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Título</span>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" [placeholder]="book.title" aria-label="title" 
+                                aria-describedby="basic-addon1" (keyup)="onKeyTitle($event)">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon2">Autor</span>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" [placeholder]="book.author" aria-label="author" 
+                                aria-describedby="basic-addon2" (keyup)="onKeyAuthor($event)">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">Sinopse</span>
+                        </div>
+                        <textarea class="form-control form-control-lg" rows="3" [placeholder]="book.synopsis" aria-label="synopsis" 
+                                aria-describedby="basic-addon3" (keyup)="onKeySynopsis($event)"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon4">Pequena Descrição</span>
+                        </div>
+                        <textarea class="form-control form-control-lg" rows="1" [placeholder]="book.smallDescription" aria-label="smallDescription" 
+                                aria-describedby="basic-addon4" (keyup)="onKeySmallDescription($event)"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon4">Ano de Publicação</span>
+                        </div>
+                        <textarea class="form-control form-control-lg" rows="1" [placeholder]="book.publicationDate" aria-label="publicationDate" 
+                                aria-describedby="basic-addon4" (keyup)="onKeyPublicationDate($event)"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon5">Quantidade Disponível</span>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" [placeholder]="book.availableQuantity" aria-label="availableQuantity" 
+                                aria-describedby="basic-addon5" (keyup)="onKeyAvailableQuantity($event)">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon6">Image Source</span>
+                        </div>
+                        <input type="text" class="form-control form-control-lg" [placeholder]="book.imgSrc" aria-label="imgSrc" 
+                                aria-describedby="basic-addon6" (keyup)="onKeyImgSrc($event)">
+                    </div>
+                    <div class="p-2">
+                        <img [attr.src]="book.imgSrc">
+                    </div>
+                    <div *ngIf="showError" class="alert alert-danger mt-2">
+                        Preencha ao Menos um Campo
+                    </div>
+                    <div *ngIf="bookAlreadyInDB" class="alert alert-danger mt-2">
+                        Esse Livro já está Cadastrado !
+                    </div>
+                    <div *ngIf="success" class="alert alert-success mt-2">
+                        Livro Alterado !
+                    </div>
+                    <button type="button" class="btn btn-danger mx-2" (click)="deleteBook()">
+                        Excluir Livro
+                    </button>
+                    <button type="button" class="btn btn-dark" (click)="editBook(book)">Salvar Mudanças</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

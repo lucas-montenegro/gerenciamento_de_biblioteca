@@ -1,0 +1,53 @@
+<div class="card m-1 p-1" style="text-align: center;">
+    <div class="p-2" style="flex: 1;">
+        <div class="display-4 card-header"> Perfil </div>
+        <div class="card-body">
+            <form>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Nome</span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg" [placeholder]="userServices.loggedInUser.name" aria-label="Username" 
+                            aria-describedby="basic-addon1" (keyup)="onKeyName($event)">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon2">Email</span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg" [placeholder]="userServices.loggedInUser.email" aria-label="Email" 
+                            aria-describedby="basic-addon2" (keyup)="onKeyEmail($event)">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Bio</span>
+                    </div>
+                    <textarea class="form-control form-control-lg" rows="2" [placeholder]="userServices.loggedInUser.bio" aria-label="Bio" 
+                            aria-describedby="basic-addon3" (keyup)="onKeyBio($event)"></textarea>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon4">Senha</span>
+                    </div>
+                    <input type="password" class="form-control form-control-lg" [placeholder]="(showPsswd) ? userServices.loggedInUser.password : ofuscatedPassword()" aria-label="Password" 
+                            aria-describedby="basic-addon4" (keyup)="onKeyPassword($event)">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-dark" type="button" (mouseenter)="showPsswd = true" (mouseleave)="showPsswd = false">Show</button>
+                    </div>
+                </div>
+                <div *ngIf="showError" class="alert alert-danger mt-2">
+                    Preencha ao Menos um Campo
+                </div>
+                <div *ngIf="invalidEmail" class="alert alert-danger mt-2">
+                    Digite um email válido.
+                </div>
+                <div *ngIf="userAlreadyInDB" class="alert alert-danger mt-2">
+                    Email Indisponível.
+                </div>
+                <div *ngIf="success" class="alert alert-success mt-2">
+                    Perfil Alterado !
+                </div>
+                <button type="button" class="btn btn-dark" (click)="editUserProfile()">Salvar Mudanças</button>
+            </form>
+        </div>
+    </div>
+</div>

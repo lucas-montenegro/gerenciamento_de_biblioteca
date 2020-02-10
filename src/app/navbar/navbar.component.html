@@ -1,0 +1,30 @@
+<div class="navbar navbar-expand-lg navbar-dark" style="background-color: #ff0000;">
+    <a class="navbar-brand" routerLink="/login">LMS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudo-collapse" aria-controls="conteudo-collapse" 
+            aria-expanded="false" aria-label="Toggle Navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    
+    <div *ngIf="userFromService.loggedInUser" class="collapse navbar-collapse" id="conteudo-collapse">
+        <div class="navbar-nav" style="margin-left: auto;">
+            <form class="form-inline" onsubmit="return false">
+                <input class="form-control" type="text" placeholder="Nome do Livro" aria-label="Search" (keyup)="onKey($event)" (keydown.enter)="searchBook()">
+                <button class="btn btn-dark mr-4" type="button" (click)="searchBook()">Buscar Livro</button>
+            </form>
+            <a class="nav-item nav-link active mx-3" [routerLink]="[ '/user', userFromService.loggedInUser.$key ]">Perfil</a>
+            <a *ngIf="userFromService.loggedInUser.$key !== '-M-Pw-zHB-6w9mmj0I-9'" class="nav-item nav-link active mx-3" routerLink="/my-books">Meus Livros</a>
+            <a *ngIf="userFromService.loggedInUser.$key === '-M-Pw-zHB-6w9mmj0I-9'" class="nav-item nav-link active mx-3" routerLink="/create-book">Adicionar Livro</a>
+            <button class="btn btn-dark nav-item mx-3" (click)="userFromService.logOut()" routerLink="/login">Sair</button>
+        </div>
+    </div>
+
+    <div *ngIf="!userFromService.loggedInUser" class="collapse navbar-collapse"  id="conteudo-collapse">
+        <div class="navbar-nav" style="margin-left: auto;">
+            <div style="float: right">
+                <button *ngIf="router.url === '/login'" class="btn btn-dark nav-item mx-3" routerLink="/register">Registrar</button>
+                <button *ngIf="router.url === '/register'" class="btn btn-dark nav-item mx-3" routerLink="/login">Login</button>
+            </div>
+        </div>
+    </div>
+</div>

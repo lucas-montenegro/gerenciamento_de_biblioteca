@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sistema-de-biblioteca-7e732"
+  },
+  "targets": {
+    "sistema-de-biblioteca-7e732": {
+      "hosting": {
+        "SistemaBiblioteca": [
+          "sistema-de-biblioteca-7e732"
+        ]
+      }
+    }
+  }
+}

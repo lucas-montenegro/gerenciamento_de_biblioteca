@@ -1,0 +1,4 @@
+<h1 class="my-2 text-center text-light">Nossos Livros</h1>
+<div style="display: flex; flex-direction: row; flex: 1; flex-wrap: wrap; background-color: #272121; border: 3px solid #443737;">
+    <app-book-card *ngFor="let book of availableBooksServices.getAvailableBooks()" [book]="book"></app-book-card>
+</div>
